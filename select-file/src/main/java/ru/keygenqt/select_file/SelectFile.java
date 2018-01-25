@@ -80,7 +80,12 @@ public class SelectFile {
         if (dialog == null) {
             dialog = new DialogCustom(activity, R.layout.dialog_files);
             dialog.getView().findViewById(R.id.files_list).getLayoutParams().height = height;
-            dialog.getView().findViewById(R.id.linearLayoutClose).setOnClickListener(v -> dialog.dismiss());
+            dialog.getView().findViewById(R.id.linearLayoutClose).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
         }
 
         dialog
