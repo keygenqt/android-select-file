@@ -1,13 +1,6 @@
 apply plugin: 'maven'
 apply plugin: 'com.android.library'
 
-repositories {
-    jcenter()
-    maven {
-        url "https://maven.google.com"
-    }
-}
-
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -33,12 +26,12 @@ android {
 
 dependencies {
     dependencies {
-        compile 'com.github.keygenqt:android-activity-select:1.0.11'
-        compile 'com.github.keygenqt:android-dialog:1.0.1'
+        compile 'io.reactivex:rxjava:1.1.4'
+        compile 'io.reactivex:rxandroid:1.2.0'
     }
     dependencies {
         compile 'com.github.keygenqt:material:1.2.7'
-        compile 'io.reactivex:rxjava:1.1.4'
-        compile 'io.reactivex:rxandroid:1.2.0'
+        compile 'com.github.keygenqt:android-activity-select:1.0.11'
+        compile 'com.github.keygenqt:android-dialog:1.0.1'
     }
 }

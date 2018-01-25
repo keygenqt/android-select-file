@@ -55,4 +55,4 @@ new SelectFile((ActivitySelect) getView().getActivity(), new SelectFilePropertie
 
 ## Screenshot
 
-![Alt text](https://raw.githubusercontent.com/keygenqt/android-letters/master/screenshot/1.png "View")
+![Alt text](https://raw.githubusercontent.com/keygenqt/android-select-file/master/screenshot/1.png "View")
