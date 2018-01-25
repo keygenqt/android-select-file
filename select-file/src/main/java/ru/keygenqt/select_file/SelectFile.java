@@ -30,24 +30,27 @@ public class SelectFile {
     private Action1<List<String>> response;
     private Action1<String> error;
 
-    private Adapter.OnClickFolderListener listener = (isFolder, path) -> {
-        if (isFolder) {
-            openFolder(path);
-        } else {
-            if (getResult().contains(path)) {
-                getResult().remove(path);
+    private Adapter.OnClickFolderListener listener = new Adapter.OnClickFolderListener() {
+        @Override
+        public void onClickFolderListener(boolean isFolder, String path) {
+            if (isFolder) {
+                openFolder(path);
             } else {
-                File file = new File(path);
-                if (properties.max_files_count < getResult().size()) {
-                    error.call("Max count upload file: " + properties.max_files_count + ".");
-                }
-                else if (properties.max_files_size < file.length()) {
-                    error.call("Max size file: " + Helper.humanReadableByteCount(properties.max_files_size, true) + "!");
+                if (getResult().contains(path)) {
+                    getResult().remove(path);
                 } else {
-                    addResult(path);
-                    if (properties.max_files_count <= 1) {
-                        response.call(getResult());
-                        dialog.dismiss();
+                    File file = new File(path);
+                    if (properties.max_files_count < getResult().size()) {
+                        error.call("Max count upload file: " + properties.max_files_count + ".");
+                    }
+                    else if (properties.max_files_size < file.length()) {
+                        error.call("Max size file: " + Helper.humanReadableByteCount(properties.max_files_size, true) + "!");
+                    } else {
+                        addResult(path);
+                        if (properties.max_files_count <= 1) {
+                            response.call(getResult());
+                            dialog.dismiss();
+                        }
                     }
                 }
             }
