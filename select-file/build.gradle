@@ -32,12 +32,13 @@ android {
 }
 
 dependencies {
-    implementation project (':activity')
-    implementation project (':dialog')
-
     dependencies {
-        implementation 'com.github.keygenqt:material:1.2.7'
-        implementation 'io.reactivex:rxjava:1.1.4'
-        implementation 'io.reactivex:rxandroid:1.2.0'
+        compile 'com.github.keygenqt:android-activity-select:1.0.11'
+        compile 'com.github.keygenqt:android-dialog:1.0.1'
+    }
+    dependencies {
+        compile 'com.github.keygenqt:material:1.2.7'
+        compile 'io.reactivex:rxjava:1.1.4'
+        compile 'io.reactivex:rxandroid:1.2.0'
     }
 }
