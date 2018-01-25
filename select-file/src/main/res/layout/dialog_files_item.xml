@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/item_files_block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eeeeee">
+
+            <View
+                android:id="@+id/item_files_separator"
+                android:layout_width="fill_parent"
+                android:layout_height="0.2dp"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/xml_background_file_line" />
+
+            <FrameLayout
+                android:id="@+id/item_files_icon_block"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/item_files_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|center"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/select_file_file" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="60dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:id="@+id/item_files_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginRight="35dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Cartoning machine"
+                    android:textColor="#333333"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/item_files_subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Last Edited: 22/10/12 12:10 PM"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/item_files_to"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <com.rey.material.widget.CheckBox
+                    android:id="@+id/item_list_files_checkbox"
+                    style="@style/Material.Drawable.CheckBox"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="left|center_vertical"
+                    custom:cbd_strokeColor="@color/general_color" />
+
+                <FrameLayout
+                    android:id="@+id/item_files_block2"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:clickable="true">
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

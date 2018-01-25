@@ -1,0 +1,43 @@
+apply plugin: 'maven'
+apply plugin: 'com.android.library'
+
+repositories {
+    jcenter()
+    maven {
+        url "https://maven.google.com"
+    }
+}
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project (':activity')
+    implementation project (':dialog')
+
+    dependencies {
+        implementation 'com.github.keygenqt:material:1.2.7'
+        implementation 'io.reactivex:rxjava:1.1.4'
+        implementation 'io.reactivex:rxandroid:1.2.0'
+    }
+}
