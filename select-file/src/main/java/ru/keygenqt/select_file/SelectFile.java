@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
@@ -116,10 +117,14 @@ public class SelectFile {
 
                 File storage = new File("/storage/");
                 for (File file : storage.listFiles()) {
-                    if (file.isHidden() || !file.canRead() || !file.isDirectory()) {
+                    if (file.isHidden() ||
+                            !file.canRead() ||
+                            !file.isDirectory() ||
+                            file.getAbsolutePath().equals("/storage/emulated") ||
+                            file.getAbsolutePath().equals(Environment.getExternalStorageDirectory().getAbsolutePath())) {
                         continue;
                     }
-                    list.add(new Adapter.Item(BitmapFactory.decodeResource(activity.getResources(), R.drawable.select_file_memory_external), "CD card",
+                    list.add(new Adapter.Item(BitmapFactory.decodeResource(activity.getResources(), R.drawable.select_file_memory_external), file.getName(),
                             v -> openFolder(file.getAbsolutePath())));
                 }
             }
