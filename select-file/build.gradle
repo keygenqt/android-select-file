@@ -1,4 +1,14 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
+    }
+}
+
 apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'maven'
 
 repositories {
@@ -10,11 +20,6 @@ repositories {
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
     defaultConfig {
         minSdkVersion 16

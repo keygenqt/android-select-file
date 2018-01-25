@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.Environment;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,27 +29,24 @@ public class SelectFile {
     private Action1<List<String>> response;
     private Action1<String> error;
 
-    private Adapter.OnClickFolderListener listener = new Adapter.OnClickFolderListener() {
-        @Override
-        public void onClickFolderListener(boolean isFolder, String path) {
-            if (isFolder) {
-                openFolder(path);
+    private Adapter.OnClickFolderListener listener = (isFolder, path) -> {
+        if (isFolder) {
+            openFolder(path);
+        } else {
+            if (getResult().contains(path)) {
+                getResult().remove(path);
             } else {
-                if (getResult().contains(path)) {
-                    getResult().remove(path);
+                File file = new File(path);
+                if (properties.max_files_count < getResult().size()) {
+                    error.call("Max count upload file: " + properties.max_files_count + ".");
+                }
+                else if (properties.max_files_size < file.length()) {
+                    error.call("Max size file: " + Helper.humanReadableByteCount(properties.max_files_size, true) + "!");
                 } else {
-                    File file = new File(path);
-                    if (properties.max_files_count < getResult().size()) {
-                        error.call("Max count upload file: " + properties.max_files_count + ".");
-                    }
-                    else if (properties.max_files_size < file.length()) {
-                        error.call("Max size file: " + Helper.humanReadableByteCount(properties.max_files_size, true) + "!");
-                    } else {
-                        addResult(path);
-                        if (properties.max_files_count <= 1) {
-                            response.call(getResult());
-                            dialog.dismiss();
-                        }
+                    addResult(path);
+                    if (properties.max_files_count <= 1) {
+                        response.call(getResult());
+                        dialog.dismiss();
                     }
                 }
             }
@@ -80,12 +76,7 @@ public class SelectFile {
         if (dialog == null) {
             dialog = new DialogCustom(activity, R.layout.dialog_files);
             dialog.getView().findViewById(R.id.files_list).getLayoutParams().height = height;
-            dialog.getView().findViewById(R.id.linearLayoutClose).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
+            dialog.getView().findViewById(R.id.linearLayoutClose).setOnClickListener(v -> dialog.dismiss());
         }
 
         dialog
