@@ -15,7 +15,7 @@
             android:id="@+id/item_files_block"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#eeeeee">
+            android:background="#ffffff">
 
             <View
                 android:id="@+id/item_files_separator"
@@ -69,18 +69,6 @@
                     android:textColor="#333333"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/item_files_subtitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="Last Edited: 22/10/12 12:10 PM"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
             </LinearLayout>
 
             <FrameLayout
@@ -91,13 +79,21 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true">
 
+                <com.rey.material.widget.RadioButton
+                    android:id="@+id/item_list_files_radio"
+                    style="@style/Material.Drawable.RadioButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="left|center_vertical"
+                    custom:rbd_strokeColor="@color/general_RadioButton" />
+
                 <com.rey.material.widget.CheckBox
                     android:id="@+id/item_list_files_checkbox"
                     style="@style/Material.Drawable.CheckBox"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="left|center_vertical"
-                    custom:cbd_strokeColor="@color/general_color" />
+                    custom:cbd_strokeColor="@color/general_CheckBox" />
 
                 <FrameLayout
                     android:id="@+id/item_files_block2"

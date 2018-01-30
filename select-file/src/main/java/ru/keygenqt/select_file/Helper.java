@@ -1,6 +1,7 @@
 package ru.keygenqt.select_file;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,7 +31,7 @@ public class Helper {
         return type == null ? "" : type.replace("\"", "");
     }
 
-    public static Bitmap getIcon(Activity activity, String mime, File file) {
+    public static Bitmap getIcon(Context activity, String mime, File file) {
 
         Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.select_file_file);
 

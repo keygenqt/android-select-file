@@ -64,14 +64,21 @@
                             android:id="@+id/textView14"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
                             android:fontFamily="sans-serif-light"
+                            android:paddingBottom="2dp"
                             android:text="Select Files"
-                            android:textColor="@color/white"
+                            android:textColor="#ffffff"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/dialog_files_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="Max size: 5M, Max count 5"
+                            android:textColor="#eeeeee"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 

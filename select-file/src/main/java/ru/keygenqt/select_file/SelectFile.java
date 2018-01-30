@@ -10,6 +10,7 @@ import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,52 +24,28 @@ import rx.functions.Action1;
 
 public class SelectFile {
 
+    private final Adapter adapter;
+
     private SelectFileProperties properties;
     private ActivitySelect activity;
-    private List<String> result = new ArrayList<>();
     private DialogCustom dialog;
     private Action1<List<String>> response;
-    private Action1<String> error;
-
-    private Adapter.OnClickFolderListener listener = (isFolder, path) -> {
-        if (isFolder) {
-            openFolder(path);
-        } else {
-            if (getResult().contains(path)) {
-                getResult().remove(path);
-            } else {
-                File file = new File(path);
-                if (properties.max_files_count < getResult().size()) {
-                    error.call("Max count upload file: " + properties.max_files_count + ".");
-                }
-                else if (properties.max_files_size < file.length()) {
-                    error.call("Max size file: " + Helper.humanReadableByteCount(properties.max_files_size, true) + "!");
-                } else {
-                    addResult(path);
-                    if (properties.max_files_count <= 1) {
-                        response.call(getResult());
-                        dialog.dismiss();
-                    }
-                }
-            }
-        }
-    };
 
     public SelectFile(ActivitySelect activity) {
         this.activity = activity;
         this.properties = new SelectFileProperties();
+        adapter = new Adapter(properties.max_files_count, properties.selected, this::openFolder);
     }
 
     public SelectFile(ActivitySelect activity, SelectFileProperties properties) {
         this.activity = activity;
         this.properties = properties;
-        result = properties.selected;
+        adapter = new Adapter(properties.max_files_count, properties.selected, this::openFolder);
     }
 
-    public void show(Action1<List<String>> response, Action1<String> error) {
+    public void show(Action1<List<String>> response) {
 
         this.response = response;
-        this.error = error;
 
         Display display = activity.getWindowManager().getDefaultDisplay();
         Point size = new Point(); display.getSize(size);
@@ -77,6 +54,7 @@ public class SelectFile {
         if (dialog == null) {
             dialog = new DialogCustom(activity, R.layout.dialog_files);
             dialog.getView().findViewById(R.id.files_list).getLayoutParams().height = height;
+            ((TextView) dialog.getView().findViewById(R.id.dialog_files_info)).setText(String.format("Max size: %s, Max count %s", Helper.humanReadableByteCount(properties.max_files_size, true), properties.max_files_count));
             dialog.getView().findViewById(R.id.linearLayoutClose).setOnClickListener(v -> dialog.dismiss());
         }
 
@@ -94,7 +72,7 @@ public class SelectFile {
 
         new Timer().schedule(new TimerTask() {@Override public void run() {activity.runOnUiThread(() -> {
 
-            List<Adapter.Item> list = new ArrayList<>();
+            List<Object> list = new ArrayList<>();
 
             File directory = new File(path);
             File[] files = directory.listFiles();
@@ -105,9 +83,9 @@ public class SelectFile {
                 if (properties.choosePhoto) {
                     list.add(new Adapter.Item(BitmapFactory.decodeResource(activity.getResources(), R.drawable.select_file_camera), "To make a photo",
                             v -> Helper.createImage(activity, p -> {
-                                getResult().clear();
-                                addResult(p);
-                                response.call(getResult());
+                                response.call(new ArrayList<String>(){{
+                                    add(p);
+                                }});
                                 dialog.dismiss();
                             })));
                 }
@@ -129,26 +107,22 @@ public class SelectFile {
                 }
             }
             else if (directory.canRead()) {
-
                 if (dir != null) {
-                    list.add(new Adapter.Item(BitmapFactory.decodeResource(activity.getResources(), R.drawable.select_file_img_dir_open), "...", dir, true, false, false));
+                    list.add(new Adapter.Item(BitmapFactory.decodeResource(activity.getResources(), R.drawable.select_file_img_dir_open), "...", v -> {
+                        openFolder(dir);
+                    }));
                 }
-
                 for (int i = 0; i < files.length; i++) {
                     if (files[i].isHidden()) {
                         continue;
                     }
                     String mime = Helper.getMimeType(Uri.fromFile(files[i]));
-                    list.add(new Adapter.Item(
-                            files[i].isDirectory() ? BitmapFactory.decodeResource(activity.getResources(), R.drawable.select_file_img_dir_close) : Helper.getIcon(activity, mime, files[i]),
-                            files[i].getName(),
-                            files[i].getAbsolutePath(),
-                            files[i].isDirectory(),
-                            properties.selected.contains(files[i].getAbsolutePath()),
-                            !properties.mimes.contains(mime)
-                    ));
+                    if (files[i].isDirectory() || properties.mimes.contains(mime)) {
+                        if (properties.max_files_size >= files[i].length()) {
+                            list.add(files[i]);
+                        }
+                    }
                 }
-
             }
             else {
                 if (dir != null) {
@@ -156,28 +130,16 @@ public class SelectFile {
                 }
             }
 
-            Adapter adapter = new Adapter(properties.max_files_count > 1 ? Adapter.TYPE_MULTI : Adapter.TYPE_ONE, list, listener);
+            adapter.updateItem(list);
             ((ListView) dialog.getView().findViewById(R.id.files_list)).setAdapter(adapter);
             close.setOnClickListener(v -> {
-                response.call(getResult());
+                response.call(adapter.getResult());
                 dialog.dismiss();
             });
 
-            if (properties.max_files_count > 1) {
-                close.setVisibility(path.equals("/") || path.equals("/storage") ? View.GONE : View.VISIBLE);
-                close.setImageResource(R.drawable.select_file_img_done);
-            } else {
-                close.setImageResource(R.drawable.select_file_img_close);
-            }
+            close.setVisibility(path.equals("/") || path.equals("/storage") ? View.GONE : View.VISIBLE);
+            close.setImageResource(R.drawable.select_file_img_done);
 
         });}}, 10);
-    }
-
-    private void addResult(String val) {
-        result.add(val);
-    }
-
-    private List<String> getResult() {
-        return result;
     }
 }

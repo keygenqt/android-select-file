@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="white">#ffffff</color>
     <color name="general_color">#42A1D8</color>
+    <color name="general_CheckBox">#74c41c</color>
+    <color name="general_RadioButton">#74c41c</color>
 </resources>
