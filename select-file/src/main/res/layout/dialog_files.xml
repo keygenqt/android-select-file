@@ -107,7 +107,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_gravity="center_horizontal"
-                    android:background="@color/white"
+                    android:background="#ffffff"
                     android:descendantFocusability="beforeDescendants"
                     android:divider="@null" />
 
