@@ -50,8 +50,10 @@ dependencies {
         compile 'io.reactivex:rxandroid:1.2.0'
     }
     dependencies {
-        compile 'com.github.keygenqt:material:1.2.7'
+//        compile 'com.github.keygenqt:material:1.2.7'
         compile 'com.github.keygenqt:android-activity-select:1.0.11'
         compile 'com.github.keygenqt:android-dialog:1.0.1'
     }
+
+    implementation project (':material')
 }

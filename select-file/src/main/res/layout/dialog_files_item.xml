@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,13 +10,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:id="@+id/item_files_block"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff">
+            android:background="#ffffff"
+            tools:ignore="UselessParent">
 
             <View
                 android:id="@+id/item_files_separator"
@@ -40,7 +43,8 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
-                    android:src="@drawable/select_file_file" />
+                    android:src="@drawable/select_file_file"
+                    android:contentDescription="icon" />
             </FrameLayout>
 
             <LinearLayout
@@ -54,20 +58,22 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:paddingLeft="60dp"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:paddingStart="60dp"
+                android:paddingEnd="20dp">
 
                 <TextView
                     android:id="@+id/item_files_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginRight="35dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:singleLine="true"
                     android:text="Cartoning machine"
                     android:textColor="#333333"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:layout_marginEnd="35dp" />
 
             </LinearLayout>
 
@@ -85,7 +91,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="left|center_vertical"
-                    custom:rbd_strokeColor="@color/general_RadioButton" />
+                    custom:rbd_strokeColor="@color/general_RadioButton"
+                    tools:ignore="RtlHardcoded" />
 
                 <com.rey.material.widget.CheckBox
                     android:id="@+id/item_list_files_checkbox"
@@ -93,13 +100,15 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="left|center_vertical"
-                    custom:cbd_strokeColor="@color/general_CheckBox" />
+                    custom:cbd_strokeColor="@color/general_CheckBox"
+                    tools:ignore="RtlHardcoded" />
 
                 <FrameLayout
                     android:id="@+id/item_files_block2"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:clickable="true">
+                    android:clickable="true"
+                    android:focusable="true">
 
                 </FrameLayout>
 
