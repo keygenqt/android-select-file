@@ -37,6 +37,10 @@ new SelectFile((ActivitySelect) getView().getActivity(), new SelectFilePropertie
             add(SelectFileMime.MIME_XLS);
             add(SelectFileMime.MIME_ZIP);
             add(SelectFileMime.MIME_RAR);
+            add(SelectFileMime.MIME_MP3);
+            add(SelectFileMime.MIME_MP4);
+            add(SelectFileMime.MIME_JPG);
+            add(SelectFileMime.MIME_PNG);
         }}))
         .show(files -> {
 
