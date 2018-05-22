@@ -52,6 +52,6 @@ dependencies {
     dependencies {
         compile 'com.github.keygenqt:material:1.2.8'
         compile 'com.github.keygenqt:android-activity-select:1.0.11'
-        implementation 'com.github.keygenqt:android-dialog:1.0.3'
+        compile 'com.github.keygenqt:android-dialog:1.0.3'
     }
 }
