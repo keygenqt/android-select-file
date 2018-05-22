@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -60,7 +61,16 @@ public class SelectFile {
 
         dialog
                 .setOnBeforeShow(d -> openFolder("/"))
-                .setAnim(DialogCustom.ANIM_BOTTOM_SLIDE).showBottom();
+                .showBottom();
+
+        dialog.getDialog().setOnKeyListener((arg0, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+            }
+            return true;
+        });
     }
 
     private void openFolder(String path) {
